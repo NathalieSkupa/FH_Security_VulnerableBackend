@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  script.
+        fetch('/users')
+          .then(response => response.json())
+          .then(users => {
+            const userList = document.getElementById('user-list');
+            users.forEach(user => {
+              const li = document.createElement('li');
+              li.innerText = user.firstName + " " + user.lastName;
+              userList.appendChild(li);
+            });
+          })
+          .catch(error => console.error(error));
+
+  h1= title
+  p Welcome to this great website. The following users have visited our website:
+
+  ul(id='user-list')
+  input(
+      type='text'
+      name='firstName'
+      id='firstName'
+  )
+
+  input(
+        type='text'
+        name='lastName'
+        id='lastName'
+    )
+
+  button(type='button', onclick='adduser(document.getElementById("firstName").value, document.getElementById("lastName").value);' ) Add
